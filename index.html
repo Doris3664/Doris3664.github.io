@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Огромная кнопка с музыкой</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+        }
+
+        #playButton {
+            padding: 50px 100px;
+            font-size: 40px;
+            color: #fff;
+            background-color: #ff0000;
+            border: none;
+            cursor: pointer;
+            border-radius: 20px;
+        }
+
+        #playButton:hover {
+            background-color: #cc0000;
+        }
+    </style>
+</head>
+<body>
+
+    <button id="playButton">ААААААААААААААА КРУАСОФТЕ !!!!!!!!!!!!!</button>
+
+    <audio id="audio" src="main.mp3"></audio>
+
+    <script>
+        document.getElementById('playButton').addEventListener('click', function() {
+            var audio = document.getElementById('audio');
+            audio.volume = 1.0; // Устанавливаем громкость на максимум
+            audio.play();
+        });
+    </script>
+
+</body>
+</html>
