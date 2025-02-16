@@ -3,44 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ГОЯКО ГОЯКО</title>
+    <title>Активация аудио</title>
     <style>
-        body, html {
+        /* Устанавливаем черный фон для всей страницы */
+        body {
             margin: 0;
             padding: 0;
-            height: 100%;
+            background-color: black; /* Черный фон */
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #000;
+            height: 100vh; /* Высота на весь экран */
         }
 
-        #playButton {
-            padding: 50px 100px;
-            font-size: 40px;
-            color: #fff;
-            background-color: #ff0000;
-            border: none;
-            cursor: pointer;
-            border-radius: 20px;
-        }
-
-        #playButton:hover {
-            background-color: #cc0000;
+        /* Стили для кнопки */
+        #audio-button {
+            width: 300px; /* Ширина кнопки */
+            height: 300px; /* Высота кнопки */
+            cursor: pointer; /* Курсор в виде указателя */
+            border: none; /* Убираем границу */
+            background: url('button.png') no-repeat center center; /* Фоновое изображение кнопки */
+            background-size: cover; /* Растягиваем изображение на всю кнопку */
         }
     </style>
 </head>
 <body>
 
-    <button id="playButton">ААААААААААААААА КРУАСОФТЕ !!!!!!!!!!!!!</button>
+    <!-- Кнопка для активации аудио -->
+    <button id="audio-button"></button>
 
-    <audio id="audio" src="main.mp3"></audio>
+    <!-- Аудио элемент -->
+    <audio id="main-audio">
+        <source src="main.mp3" type="audio/mpeg">
+    </audio>
 
     <script>
-        document.getElementById('playButton').addEventListener('click', function() {
-            var audio = document.getElementById('audio');
-            audio.volume = 1.0; // Устанавливаем громкость на максимум
-            audio.play();
+        // Получаем элементы кнопки и аудио
+        const audioButton = document.getElementById('audio-button');
+        const mainAudio = document.getElementById('main-audio');
+
+        // Устанавливаем громкость на максимум
+        mainAudio.volume = 1.0;
+
+        // Добавляем обработчик события нажатия на кнопку
+        audioButton.addEventListener('click', function() {
+            // Воспроизводим аудио
+            mainAudio.play();
         });
     </script>
 
