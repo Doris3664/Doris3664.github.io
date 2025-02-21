@@ -135,13 +135,29 @@ html
             return Math.random() * 10 + 5; // Случайная продолжительность от 5 до 15 секунд
         }
 
+        function getRandomPosition() {
+            return {
+                x: Math.random() * 100,
+                y: Math.random() * 100
+            };
+        }
+
+        const usedPositions = new Set();
+
         for (let i = 0; i < 30; i++) { // Увеличиваем количество слов в 10 раз
             words.forEach(word => {
+                let position;
+                do {
+                    position = getRandomPosition();
+                } while (usedPositions.has(`${position.x},${position.y}`));
+
+                usedPositions.add(`${position.x},${position.y}`);
+
                 const span = document.createElement('span');
                 span.classList.add('word');
                 span.textContent = word;
-                span.style.left = `${Math.random() * 100}%`;
-                span.style.top = `${Math.random() * 100}%`;
+                span.style.left = `${position.x}%`;
+                span.style.top = `${position.y}%`;
                 
                 const direction = getRandomDirection();
                 const duration = getRandomDuration();
