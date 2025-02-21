@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+html
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -14,6 +16,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh; /* Высота на весь экран */
+            overflow: hidden; /* Скрываем прокрутку */
         }
 
         /* Стили для кнопки */
@@ -24,6 +27,63 @@
             border: none; /* Убираем границу */
             background: url('button.jpg') no-repeat center center; /* Фоновое изображение кнопки */
             background-size: cover; /* Растягиваем изображение на всю кнопку */
+            z-index: 1; /* Убедимся, что кнопка поверх слов */
+        }
+
+        /* Стили для слов */
+        .floating-words {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .word {
+            position: absolute;
+            font-size: 24px;
+            font-weight: bold;
+            animation: float 10s infinite, colorChange 5s infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(100px, 100px);
+            }
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+
+        @keyframes colorChange {
+            0% {
+                color: red;
+            }
+            14.28% {
+                color: orange;
+            }
+            28.56% {
+                color: yellow;
+            }
+            42.84% {
+                color: green;
+            }
+            57.12% {
+                color: blue;
+            }
+            71.4% {
+                color: indigo;
+            }
+            85.68% {
+                color: violet;
+            }
+            100% {
+                color: red;
+            }
         }
     </style>
 </head>
@@ -36,6 +96,9 @@
     <audio id="main-audio">
         <source src="main.mp3" type="audio/mpeg">
     </audio>
+
+    <!-- Контейнер для слов -->
+    <div class="floating-words"></div>
 
     <script>
         // Получаем элементы кнопки и аудио
@@ -50,6 +113,21 @@
             // Воспроизводим аудио
             mainAudio.play();
         });
+
+        // Создаем и анимируем слова
+        const words = ['чивапчис', 'venom', 'барабулька'];
+        const container = document.querySelector('.floating-words');
+
+        for (let i = 0; i < 3; i++) {
+            words.forEach(word => {
+                const span = document.createElement('span');
+                span.classList.add('word');
+                span.textContent = word;
+                span.style.left = `${Math.random() * 100}%`;
+                span.style.top = `${Math.random() * 100}%`;
+                container.appendChild(span);
+            });
+        }
     </script>
 
 </body>
