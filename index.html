@@ -73,6 +73,26 @@ html
                 color: red;
             }
         }
+
+        @keyframes moveTop {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100vh); }
+        }
+
+        @keyframes moveRight {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(100vw); }
+        }
+
+        @keyframes moveBottom {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(100vh); }
+        }
+
+        @keyframes moveLeft {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100vw); }
+        }
     </style>
 </head>
 <body>
@@ -126,33 +146,12 @@ html
                 const direction = getRandomDirection();
                 const duration = getRandomDuration();
                 
-                span.style.animation = `move${direction} ${duration}s linear infinite`;
+                span.style.animation = `move${direction} ${duration}s linear infinite, colorChange 5s infinite`;
                 container.appendChild(span);
             });
         }
-
-        // Анимации для разных направлений
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes moveTop {
-                0% { transform: translateY(0); }
-                100% { transform: translateY(-100vh); }
-            }
-            @keyframes moveRight {
-                0% { transform: translateX(0); }
-                100% { transform: translateX(100vw); }
-            }
-            @keyframes moveBottom {
-                0% { transform: translateY(0); }
-                100% { transform: translateY(100vh); }
-            }
-            @keyframes moveLeft {
-                0% { transform: translateX(0); }
-                100% { transform: translateX(-100vw); }
-            }
-        `;
-        document.head.appendChild(style);
     </script>
 
 </body>
 </html>
+
