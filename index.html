@@ -44,19 +44,7 @@ html
             position: absolute;
             font-size: 24px;
             font-weight: bold;
-            animation: float 10s infinite, colorChange 5s infinite;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translate(0, 0);
-            }
-            50% {
-                transform: translate(100px, 100px);
-            }
-            100% {
-                transform: translate(0, 0);
-            }
+            animation: colorChange 5s infinite;
         }
 
         @keyframes colorChange {
@@ -118,16 +106,52 @@ html
         const words = ['чивапчис', 'venom', 'барабулька'];
         const container = document.querySelector('.floating-words');
 
-        for (let i = 0; i < 3; i++) {
+        function getRandomDirection() {
+            const directions = ['top', 'right', 'bottom', 'left'];
+            return directions[Math.floor(Math.random() * directions.length)];
+        }
+
+        function getRandomDuration() {
+            return Math.random() * 10 + 5; // Случайная продолжительность от 5 до 15 секунд
+        }
+
+        for (let i = 0; i < 30; i++) { // Увеличиваем количество слов в 10 раз
             words.forEach(word => {
                 const span = document.createElement('span');
                 span.classList.add('word');
                 span.textContent = word;
                 span.style.left = `${Math.random() * 100}%`;
                 span.style.top = `${Math.random() * 100}%`;
+                
+                const direction = getRandomDirection();
+                const duration = getRandomDuration();
+                
+                span.style.animation = `move${direction} ${duration}s linear infinite`;
                 container.appendChild(span);
             });
         }
+
+        // Анимации для разных направлений
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes moveTop {
+                0% { transform: translateY(0); }
+                100% { transform: translateY(-100vh); }
+            }
+            @keyframes moveRight {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(100vw); }
+            }
+            @keyframes moveBottom {
+                0% { transform: translateY(0); }
+                100% { transform: translateY(100vh); }
+            }
+            @keyframes moveLeft {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(-100vw); }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 
 </body>
