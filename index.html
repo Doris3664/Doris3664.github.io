@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 html
 <!DOCTYPE html>
 <html lang="ru">
@@ -39,7 +38,8 @@ html
             position: absolute;
             font-size: 24px;
             font-weight: bold;
-            animation: colorChange 5s infinite, move 10s linear infinite;
+            color: white;
+            animation: moveAcrossScreen 10s linear infinite, colorChange 5s infinite;
             white-space: nowrap;
         }
         @keyframes colorChange {
@@ -51,12 +51,9 @@ html
             83.33% { color: indigo; }
             100% { color: violet; }
         }
-        @keyframes move {
-            0% { transform: translate(0, 0); }
-            25% { transform: translate(100vw, 0); }
-            50% { transform: translate(100vw, 100vh); }
-            75% { transform: translate(0, 100vh); }
-            100% { transform: translate(0, 0); }
+        @keyframes moveAcrossScreen {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(100vw - 100%)); }
         }
     </style>
 </head>
@@ -70,7 +67,7 @@ html
         const audioButton = document.getElementById('audio-button');
         const mainAudio = document.getElementById('main-audio');
         mainAudio.volume = 1.0;
-        
+
         audioButton.addEventListener('click', function() {
             mainAudio.play();
         });
@@ -80,8 +77,8 @@ html
         
         function getRandomPosition() {
             return {
-                x: Math.random() * (window.innerWidth - 100),
-                y: Math.random() * (window.innerHeight - 50)
+                x: Math.random() * (window.innerWidth - 80),
+                y: Math.random() * (window.innerHeight - 30)
             };
         }
 
