@@ -1,180 +1,67 @@
 <!DOCTYPE html>
-html
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DORIS</title>
-    <style>
-        /* Устанавливаем черный фон для всей страницы */
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: black; /* Черный фон */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh; /* Высота на весь экран */
-            overflow: hidden; /* Скрываем прокрутку */
-        }
+javascript
+// Получаем элементы кнопки и аудио
+const audioButton = document.getElementById('audio-button');
+const mainAudio = document.getElementById('main-audio');
+const container = document.querySelector('.floating-words');
 
-        /* Стили для кнопки */
-        #audio-button {
-            width: 300px; /* Ширина кнопки */
-            height: 300px; /* Высота кнопки */
-            cursor: pointer; /* Курсор в виде указателя */
-            border: none; /* Убираем границу */
-            background: url('button.jpg') no-repeat center center; /* Фоновое изображение кнопки */
-            background-size: cover; /* Растягиваем изображение на всю кнопку */
-            z-index: 1; /* Убедимся, что кнопка поверх слов */
-        }
+// Устанавливаем громкость на максимум
+mainAudio.volume = 1.0;
 
-        /* Стили для слов */
-        .floating-words {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
+// Функция для создания и анимации слов
+function createAndAnimateWords() {
+    const words = ['чивапчис', 'venom', 'барабулька'];
 
-        .word {
-            position: absolute;
-            font-size: 24px;
-            font-weight: bold;
-            animation: colorChange 5s infinite;
-        }
+    function getRandomDirection() {
+        const directions = ['Top', 'Right', 'Bottom', 'Left'];
+        return directions[Math.floor(Math.random() * directions.length)];
+    }
 
-        @keyframes colorChange {
-            0% {
-                color: red;
-            }
-            14.28% {
-                color: orange;
-            }
-            28.56% {
-                color: yellow;
-            }
-            42.84% {
-                color: green;
-            }
-            57.12% {
-                color: blue;
-            }
-            71.4% {
-                color: indigo;
-            }
-            85.68% {
-                color: violet;
-            }
-            100% {
-                color: red;
-            }
-        }
+    function getRandomDuration() {
+        return Math.random() * 10 + 5; // Случайная продолжительность от 5 до 15 секунд
+    }
 
-        @keyframes moveTop {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-100vh); }
-        }
+    function getRandomPosition() {
+        return {
+            x: Math.random() * 100,
+            y: Math.random() * 100
+        };
+    }
 
-        @keyframes moveRight {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(100vw); }
-        }
+    const usedPositions = new Set();
 
-        @keyframes moveBottom {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(100vh); }
-        }
+    for (let i = 0; i < 30; i++) { // Увеличиваем количество слов в 10 раз
+        words.forEach(word => {
+            let position;
+            do {
+                position = getRandomPosition();
+            } while (usedPositions.has(`${position.x},${position.y}`));
 
-        @keyframes moveLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-100vw); }
-        }
-    </style>
-</head>
-<body>
+            usedPositions.add(`${position.x},${position.y}`);
 
-    <!-- Кнопка для активации аудио -->
-    <button id="audio-button"></button>
+            const span = document.createElement('span');
+            span.classList.add('word');
+            span.textContent = word;
+            span.style.left = position.x + '%';
+            span.style.top = position.y + '%';
 
-    <!-- Аудио элемент -->
-    <audio id="main-audio">
-        <source src="main.mp3" type="audio/mpeg">
-    </audio>
+            const direction = getRandomDirection();
+            const duration = getRandomDuration();
 
-    <!-- Контейнер для слов -->
-    <div class="floating-words"></div>
-
-    <script>
-        // Получаем элементы кнопки и аудио
-        const audioButton = document.getElementById('audio-button');
-        const mainAudio = document.getElementById('main-audio');
-        const container = document.querySelector('.floating-words');
-
-        // Устанавливаем громкость на максимум
-        mainAudio.volume = 1.0;
-
-        // Функция для создания и анимации слов
-        function createAndAnimateWords() {
-            const words = ['чивапчис', 'venom', 'барабулька'];
-
-            function getRandomDirection() {
-                const directions = ['top', 'right', 'bottom', 'left'];
-                return directions[Math.floor(Math.random() * directions.length)];
-            }
-
-            function getRandomDuration() {
-                return Math.random() * 10 + 5; // Случайная продолжительность от 5 до 15 секунд
-            }
-
-            function getRandomPosition() {
-                return {
-                    x: Math.random() * 100,
-                    y: Math.random() * 100
-                };
-            }
-
-            const usedPositions = new Set();
-
-            for (let i = 0; i < 30; i++) { // Увеличиваем количество слов в 10 раз
-                words.
-forEach(word => {
-                    let position;
-                    do {
-                        position = getRandomPosition();
-                    } while (usedPositions.has(`${position.x},${position.y}`));
-
-                    usedPositions.add(`${position.x},${position.y}`);
-
-                    const span = document.createElement('span');
-                    span.classList.add('word');
-                    span.textContent = word;
-                    span.style.left = ${position.x}%;
-                    span.style.top = ${position.y}%;
-
-                    const direction = getRandomDirection();
-                    const duration = getRandomDuration();
-
-                    span.style.animation = move${direction} ${duration}s linear infinite, colorChange 5s infinite;
-                    container.appendChild(span);
-                });
-            }
-        }
-
-        // Добавляем обработчик события нажатия на кнопку
-        audioButton.addEventListener('click', function() {
-            // Воспроизводим аудио
-            mainAudio.play();
-
-            // Создаем и анимируем слова только при нажатии на кнопку
-            if (container.children.length === 0) {
-                createAndAnimateWords();
-            }
+            span.style.animation = `move${direction} ${duration}s linear infinite, colorChange 5s infinite`;
+            container.appendChild(span);
         });
-    </script>
+    }
+}
 
-</body>
-</html>
+// Добавляем обработчик события нажатия на кнопку
+audioButton.addEventListener('click', function() {
+    console.log('Кнопка нажата');
+    mainAudio.play();
+
+    // Создаем и анимируем слова только при нажатии на кнопку
+    if (container.children.length === 0) {
+        createAndAnimateWords();
+    }
+});
+
