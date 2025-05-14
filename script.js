@@ -176,3 +176,16 @@ async function getCachedWeather() {
 }
 
 // В функции fetchWeather добавить return weatherData в конце
+.forecast-days {
+  display: flex;
+  gap: 15px;
+  overflow-x: auto;
+  padding: 10px 0;
+}
+
+.forecast-day {
+  min-width: 120px;
+  background: #252525;
+  padding: 10px;
+  border-radius: 8px;
+}
