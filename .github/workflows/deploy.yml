@@ -1,0 +1,22 @@
+name: Deploy with API keys
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Replace API keys
+        run: |
+          sed -i "s/ваш_api_ключ_openweather/${{ secrets.OPENWEATHER_API_KEY }}/g" script.js
+          sed -i "s/ваш_api_ключ_weatherapi/${{ secrets.WEATHERAPI_KEY }}/g" script.js
+          
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
