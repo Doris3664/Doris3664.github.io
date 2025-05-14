@@ -152,3 +152,27 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+// Получение данных с кешированием
+async function getCachedWeather() {
+  const cacheKey = 'weatherCache';
+  const cacheTime = 15 * 60 * 1000; // 15 минут
+  
+  // Пробуем получить из кеша
+  const cached = localStorage.getItem(cacheKey);
+  if (cached) {
+    const { data, timestamp } = JSON.parse(cached);
+    if (Date.now() - timestamp < cacheTime) {
+      return data;
+    }
+  }
+  
+  // Если кеш устарел, делаем новый запрос
+  const freshData = await fetchWeather();
+  localStorage.setItem(cacheKey, JSON.stringify({
+    data: freshData,
+    timestamp: Date.now()
+  }));
+  return freshData;
+}
+
+// В функции fetchWeather добавить return weatherData в конце
